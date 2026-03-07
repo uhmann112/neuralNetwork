@@ -15,3 +15,56 @@ for i in range(iterations):
 	n= Neuron(4)
 inp=inputs = np.array([29999,3,455,-123])
 print(n.forward(inp))
+
+
+
+
+# ---------------------------
+# MINI TESTCODE
+# ---------------------------
+
+# Ein Neuron mit 3 Inputs
+n = Neuron(3, lr=0.1)
+
+inputs = np.array([1.0, 0.5, -1.2])
+target = 1.0
+
+print("Initial weights:", n.weights)
+print("Initial bias:", n.bias)
+
+# Forward pass
+out = n.forward(inputs)
+print("Initial output:", out)
+
+# Backprop
+n.backwards(target)
+
+print("\nUpdated weights:", n.weights)
+print("Updated bias:", n.bias)
+
+# Neuer Forward-Pass nach Update
+new_out = n.forward(inputs)
+print("New output after training step:", new_out)
+
+better version:
+
+# ---------------------------
+# TRAINING TEST
+# ---------------------------
+
+n = Neuron(3, lr=0.1)
+
+inputs = np.array([1.0, 0.5, -1.2])
+target = 1.0
+
+print("Initial output:", n.forward(inputs))
+print(f"expected output: {target}")
+for step in range(300):
+    out = n.forward(inputs)
+    n.backwards(target)
+
+    if step % 50 == 0:
+        print(f"Step {step}: output = {out} || error: {n.delta}")
+        print(f"error")
+
+print("\nFinal output:", n.forward(inputs))
