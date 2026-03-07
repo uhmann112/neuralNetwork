@@ -6,13 +6,11 @@ def sigmoid(x):
 
 
 class Neuron:
-	def __init__(self,weights,bias):
-		self.weights=weights
-		self.bias=bias
+	def __init__(self,numInputs):
+		self.weights=np.random.rand(1,numInputs)
+		self.bias = np.random.randint(5)
 
 	def forward(self,inputs):
-		total= np.dot(self.weights,inputs)
-		return sigmoid(total)
-
-
+		total= np.dot(self.weights,inputs)+self.bias
+		return sigmoid(total).item()
 

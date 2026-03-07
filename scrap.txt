@@ -1,0 +1,17 @@
+for i in range(iterations):
+
+	out1=l1.process(inputs)
+	out2=l2.process(out1)
+	out3=l3.process(out2)
+	out4=l4.process(out3)
+
+	meanPred =np.mean(out4)
+	error = meanPred-expected
+	print(meanPred)
+	print(error)
+
+
+
+	n= Neuron(4)
+inp=inputs = np.array([29999,3,455,-123])
+print(n.forward(inp))
