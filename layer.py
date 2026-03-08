@@ -2,6 +2,15 @@ import numpy as np
 
 from neuron import Neuron
 
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def sigmoidDerivative(x):
+    s = sigmoid(x)
+    return s * (1 - s)
+
+
 class Layer:
 	def __init__(self,layerSize,numInputs):
 		self.layerSize=layerSize
@@ -10,22 +19,31 @@ class Layer:
 		self.deltas = []
 
 
+
 	def process(self,inputs):
-		output=[]
+		self.output=[]
 		self.inputs=inputs
 		for n in self.neurons:
-			output.append(n.forward(inputs))
-		return output
+			self.output.append(n.forward(inputs))
+		self.weights = np.array([n.weights.copy() for n in self.neurons])
+		return np.array(self.output)
 
-	def backwards(self):
-		for n in self.neurons:
-			n.backwards(1.0)
-			self.deltas.append(n.delta.item())
+	def backwardsOut(self,expected):
+		self.expected=np.array(expected)
+		self.deltas=[]
+		self.prevWeights = [n.weights.copy() for n in self.neurons]
+
+		self.deltas = (self.output-self.expected)
+		for i, n in enumerate(self.neurons):
+			n.backwards(self.deltas[i])
+
+	def backwards(self,deltasNext,weightsNext):
+		z = np.array([n.weightedSum for n in self.neurons])
+		self.derivative = np.array([n.output * (1 - n.output) for n in self.neurons])
+		self.influence = np.dot(weightsNext.T, deltasNext)
+		self.deltas = self.influence * self.derivative
+		for i, n in enumerate(self.neurons):
+			n.backwards(self.deltas[i])
 
 
-inputs = np.array([-299,3,455,-123])
-l= Layer(4,4)
-l.process(inputs)
-l.backwards()
-print(l.deltas)
 

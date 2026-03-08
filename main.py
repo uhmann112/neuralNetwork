@@ -4,21 +4,19 @@ from neuron import Neuron
 from layer import Layer
 
 
-iterations=200000
+iterations=1000
 
-expected = 1
-inputs = np.array([29999,3,455,-123])
-wheights =np.array([1,2,88,33])
+expected = [0,1]
+inputs = np.array([1,1,1,0])
 numNeurons= len(inputs)
 numInputs=len(inputs)
 
-bias = 5
 
 #lazer werden initialisiert 
 l1 = Layer(numNeurons,numInputs)
 l2 = Layer(numNeurons,numInputs)
 l3 = Layer(numNeurons,numInputs)
-l4 = Layer(numNeurons,numInputs)
+l4 = Layer(2,numInputs)
 
 
 
@@ -29,9 +27,10 @@ for i in range(iterations):
 	out3=l3.process(out2)
 	out4=l4.process(out3)
 
-	meanPred =np.mean(out4)
-	error = meanPred-expected
-print(f"loop ran {iterations} times succesfully!")
-print(f"mean prediction : {meanPred}")
-print(f"expected was {expected}")
-print(f"fehler ist {error}")
+	l4.backwardsOut(expected)
+	l3.backwards(l4.deltas,l4.weights)
+	l2.backwards(l3.deltas,l3.weights)
+	l1.backwards(l2.deltas,l2.weights)
+
+	if i%100==0:
+		print(out4)
