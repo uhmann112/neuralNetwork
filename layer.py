@@ -10,13 +10,18 @@ def sigmoidDerivative(x):
     s = sigmoid(x)
     return s * (1 - s)
 
+def softMax(ar):
+    acu = [x**2 for x in ar]
+    s = sum(acu)
+    return [x / s for x in acu]
 
 class Layer:
-	def __init__(self,layerSize,numInputs):
+	def __init__(self,layerSize,numInputs,isSoftMax):
 		self.layerSize=layerSize
 		self.numInputs=numInputs
 		self.neurons = [Neuron(self.numInputs) for i in range(self.layerSize)]
 		self.deltas = []
+		self.isSoftMax=isSoftMax
 
 
 
@@ -26,7 +31,11 @@ class Layer:
 		for n in self.neurons:
 			self.output.append(n.forward(inputs))
 		self.weights = np.array([n.weights.copy() for n in self.neurons])
-		return np.array(self.output)
+		if self.isSoftMax==True:
+			return np.array(softMax(self.output))
+		else:
+			return np.array(self.output)
+
 
 	def backwardsOut(self,expected):
 		self.expected=np.array(expected)
