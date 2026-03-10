@@ -5,7 +5,7 @@ from neuron import Neuron
 from layer import Layer
 
 
-iterations=50
+iterations=10
 
 def xor_level(bits):
     # XOR ist High, wenn die Anzahl der Einsen ungerade ist

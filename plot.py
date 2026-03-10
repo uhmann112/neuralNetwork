@@ -10,7 +10,7 @@ plt.ion()
 
 
 def f(x):
-    return -(0.0001 * x**3) + 50
+    return -(0.0001 * x**3) + 70
 
 def generate_data(n):
     x = np.random.uniform(0, 100, n)
@@ -31,13 +31,13 @@ def make_grid(xmin=0, xmax=100, ymin=0, ymax=100, step=3):
     grid = np.column_stack((X.ravel(), Y.ravel()))
     return grid
 
-grid = make_grid(step=1)
+grid = make_grid(step=3)
 unique_xs = np.unique(grid[:, 0])  # ← FIX 1: echte X-Werte aus dem Grid
 
-data, x, y, lab = generate_data(500)
+data, x, y, lab = generate_data(200)
 plotTestPoints(x, y, lab)  # ← FIX 2: lab übergeben (war vorher nicht übergeben)
 
-epochs = 6
+epochs = 24
 boundary_line = None  # ← FIX 3: Handle für die Linie merken
 
 for i in range(epochs):
