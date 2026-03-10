@@ -1,0 +1,35 @@
+figure.facecolor      : #000000
+axes.facecolor        : #000000
+
+axes.edgecolor        : #444444
+axes.labelcolor       : #DDDDDD
+xtick.color           : #AAAAAA
+ytick.color           : #AAAAAA
+text.color            : #FFFFFF
+
+axes.grid             : True
+grid.color            : #222222
+grid.linestyle        : --
+grid.linewidth        : 0.6
+
+lines.linewidth       : 2.2
+lines.markersize      : 7
+
+font.size             : 12
+legend.frameon        : False
+
+image.cmap            : plasma
+
+# Scatter defaults
+patch.edgecolor       : #000000
+patch.linewidth       : 0.5
+
+# Color cycle (neon vibes)
+axes.prop_cycle       : cycler('color', [
+    '#00E5FF',  # neon cyan
+    '#FF4081',  # neon pink
+    '#7C4DFF',  # neon purple
+    '#69F0AE',  # neon green
+    '#FFEA00',  # neon yellow
+    '#FF6E40'   # neon orange
+])

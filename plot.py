@@ -5,7 +5,7 @@ import numpy as np
 import main
 
 
-
+plt.style.use("nn_ultra_dark.mplstyle")
 plt.ion()
 
 
@@ -24,20 +24,20 @@ def plotTestPoints(x, y, lab):
     plt.plot(np.linspace(0, 100, 200), f(np.linspace(0, 100, 200)), color="blue",linewidth=3)
     plt.title("Generated Data + f(x)")
 
-def make_grid(xmin=0, xmax=100, ymin=0, ymax=100, step=3):
+def make_grid(xmin=0, xmax=100, ymin=0, ymax=100, step=5):
     xs = np.arange(xmin, xmax, step)
     ys = np.arange(ymin, ymax, step)
     X, Y = np.meshgrid(xs, ys)
     grid = np.column_stack((X.ravel(), Y.ravel()))
     return grid
 
-grid = make_grid(step=3)
+grid = make_grid(step=5)
 unique_xs = np.unique(grid[:, 0])  # ← FIX 1: echte X-Werte aus dem Grid
 
-data, x, y, lab = generate_data(200)
+data, x, y, lab = generate_data(100)
 plotTestPoints(x, y, lab)  # ← FIX 2: lab übergeben (war vorher nicht übergeben)
 
-epochs = 24
+epochs = 140
 boundary_line = None  # ← FIX 3: Handle für die Linie merken
 
 for i in range(epochs):
@@ -51,7 +51,7 @@ for i in range(epochs):
         mask = grid[:, 0] == xi
         ys_for_x = grid[mask][:, 1]
         p_for_x = p[mask]
-        idx = np.argmin(np.abs(p_for_x - 0.5))
+        idx = np.argmin(np.abs(p_for_x - 0.55))
         boundary_x.append(xi)
         boundary_y.append(ys_for_x[idx])
 
