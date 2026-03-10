@@ -9,7 +9,7 @@ def sigmoid(x):
 class Neuron:
 	def __init__(self,numInputs,lr=0.1):
 		self.weights=np.random.rand(numInputs)
-		self.bias = np.random.randint(5)
+		self.bias = np.random.rand()*0.1
 		self.lr=lr
 
 	def forward(self,inputs):

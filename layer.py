@@ -10,10 +10,10 @@ def sigmoidDerivative(x):
     s = sigmoid(x)
     return s * (1 - s)
 
+
 def softMax(ar):
-    acu = [x**2 for x in ar]
-    s = sum(acu)
-    return [x / s for x in acu]
+    e = np.exp(ar - np.max(ar))  # np.max für numerische Stabilität
+    return e / e.sum()
 
 class Layer:
 	def __init__(self,layerSize,numInputs,isSoftMax):

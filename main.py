@@ -5,7 +5,7 @@ from neuron import Neuron
 from layer import Layer
 
 
-iterations=5
+iterations=50
 
 def xor_level(bits):
     # XOR ist High, wenn die Anzahl der Einsen ungerade ist
@@ -40,7 +40,7 @@ l4 = Layer(output_size, hidden1, True)
 
 
 def predict(point):
-    o1 = l1.process(point)
+    o1 = l1.process(point/100)
     o2 = l2.process(o1)
     o3 = l3.process(o2)
     o4 = l4.process(o3)
@@ -50,7 +50,7 @@ def runNetwork(data):
 	for i in range(iterations):
 		data=np.array(data,dtype=float)
 		for x in data:
-			CurrentInput = x[:2]
+			CurrentInput = x[:2]/100
 			expected = [1.0, 0.0] if x[2] == 1 else [0.0, 1.0]
 
 			out1=l1.process(CurrentInput)
